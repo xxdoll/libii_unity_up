@@ -1,0 +1,132 @@
+# 开发环境 和 测试环境 都使用这个配置
+server:
+  port: 9090
+  # session失效时间
+  servlet:
+    context-path: /unity_up
+    session:
+      timeout: 7200s
+      cookie:
+        name: unity_up-session
+
+spring:
+  profiles:
+    include: sysconfig
+  #json数据格式化
+  jackson:
+    date-format: "yyyy-MM-dd HH:mm:ss"
+    time-zone: GMT+8
+  # 数据源
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.0.26:3306/unity_up?useUnicode=true&characterEncoding=UTF-8&useSSL=false&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: xuejinyu
+
+    # Druid连接池配置
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      # 初始化
+      initialSize: 3
+      # 最大
+      maxActive: 20
+      # 最小
+      minIdle: 3
+      # 最大连接等待超时时间
+      maxWait: 60000
+      # 打开PSCache,并且指定每个连接PSCache的大小
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      # 配置间隔多久才进行一次检测,检测需要关闭的空闲连接,单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间,单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      # 设置连接在池中最大存活时长，超过上限才会被清理
+      maxEvictableIdleTimeMillis: 600000
+      # 配置监控统计拦截的filters,去掉后监控界面sql将无法统计,'wall'用于防火墙
+      filters: stat, wall, slf4j
+
+  # http
+  http:
+    # 过滤字符编码
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+  # 文件上传大小
+  servlet:
+    multipart:
+      # 单个文件大小
+      max-file-size: 500MB
+      # 一次传多个文件的总大小
+      max-request-size: 1024MB
+
+  #redis
+  redis:
+    database: 0
+    # Redis服务器地址
+    host: 192.168.0.23
+    port: 6379
+    password:
+    timeout: 5000ms
+
+    jedis:
+      pool:
+        # 连接池中的最大连接数
+        max-active: 8
+        # 连接池中的最大空闲连接
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1ms
+  # 取消spring对freemarker默认templates目录的检测
+  freemarker:
+    check-template-location: false
+  jpa:
+    open-in-view: false
+
+# 认证中心地址
+auth-server: http://192.168.0.23:9999
+auth-platforms: http://192.168.0.23:28012/#/platforms
+
+# 基础管理系统地址
+base-data-server: http://192.168.0.23:9090/base_data
+
+# OBS 配置
+cdn:
+  accessKey: EV6YS2YONZHD3I8EB8NL
+  secretKey: oJ2R07XKzqyOvF75ArURCf35MatchBi6miXF1p5D
+  endPoint: https://obs.cn-east-2.myhuaweicloud.com
+  # CDN 配置
+  bucket: lr-test
+  # cdn的server
+  server: http://lr-test.libii.cn/
+
+test:
+  # 测试服资源访问地址
+  url: http://192.168.0.21/
+  # 资源包存放路径
+  path: /data/
+#  path: E:\\
+
+custom:
+  config:
+    ignores:
+      # 需要过滤的 post 请求
+      post:
+      # options的请求不拦截
+      options:
+        - "/**"
+      # 需要过滤的请求，不限方法
+      pattern:
+        # 不拦截 的请求
+        - "/swagger-ui.html"
+        - "/v2/**"
+        - "/webjars/**"
+        - "/swagger-resources/**"
+        - "/doc.html"
+        - "/**"
