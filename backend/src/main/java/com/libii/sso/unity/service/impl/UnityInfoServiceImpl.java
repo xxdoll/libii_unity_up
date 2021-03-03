@@ -97,7 +97,7 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
             String bucket = cdnUtil.getBucket();
             Date date = new Date();
             String version = DateUtils.DateToString(date, "yyyyMMddHHmmss");
-            String basePath = Constant.PROJECT + "/" + code + "/" + version + "/";
+            String basePath = code + "/" + version + "/";
             try {
                 // 文件写到磁盘
                 file.transferTo(tempFile);
@@ -127,7 +127,7 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
     @Override
     public void deleteUnity(Integer id) {
         UnityInfo unityInfo = unityInfoMapper.selectByPrimaryKey(id);
-        String dir = test_path + unityInfo.getCode() + "/" + unityInfo.getVersion();
+        String dir = test_path + Constant.PROJECT + "/" + unityInfo.getCode() + "/" + unityInfo.getVersion();
         try {
             FileUtil.deleteFile(dir);
         } catch (IOException e) {
