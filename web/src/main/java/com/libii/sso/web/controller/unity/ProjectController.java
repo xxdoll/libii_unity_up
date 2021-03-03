@@ -52,13 +52,6 @@ public class ProjectController {
         return ResultGenerator.genSuccessResult().setMessage("修改成功");
     }
 
-    @GetMapping
-    @ApiOperation(value = "获取项目信息", notes = "单个获取", produces = "application/json")
-    public RestResult<Project> detail(@ApiParam(value = "主键ID") @RequestParam Integer id) {
-        Project project = projectService.findById(id);
-        return ResultGenerator.genSuccessResult(project);
-    }
-
     /**
      * 用于分页查询,默认可以不用传分页信息
      * 默认值：page=1,size=10,sortField="id",sortOrder="ASC"

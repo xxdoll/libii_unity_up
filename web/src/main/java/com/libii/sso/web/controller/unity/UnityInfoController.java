@@ -40,33 +40,11 @@ public class UnityInfoController {
         return ResultGenerator.genSuccessResult().setMessage("上传成功");
     }
 
-    @PostMapping
-    @ApiOperation(value = "新增unity资源", notes = "单个新增", produces = "application/json")
-    public RestResult add(@ApiParam(name = "unity资源信息", required = true) @RequestBody UnityInfo unityInfo) {
-        unityInfo.setCreateTime(new Date());
-        unityInfoService.save(unityInfo);
-        return ResultGenerator.genSuccessResult().setMessage("保存成功");
-    }
-
     @DeleteMapping
     @ApiOperation(value = "删除unity资源", notes = "单个删除", produces = "application/json")
     public RestResult delete(@ApiParam(name = "unity资源信息", required = true) Integer id) {
-        unityInfoService.deleteById(id);
+        unityInfoService.deleteUnity(id);
         return ResultGenerator.genSuccessResult().setMessage("删除成功");
-    }
-
-    @PutMapping
-    @ApiOperation(value = "修改unity资源", notes = "单个修改" , produces = "application/json")
-    public RestResult update(@ApiParam(name = "unity资源信息", required = true) @RequestBody UnityInfo unityInfo) {
-        unityInfoService.update(unityInfo);
-        return ResultGenerator.genSuccessResult().setMessage("修改成功");
-    }
-
-    @GetMapping
-    @ApiOperation(value = "获取unity资源信息", notes = "单个获取", produces = "application/json")
-    public RestResult<UnityInfo> detail(@ApiParam(value = "主键ID") @RequestParam Integer id) {
-        UnityInfo unityInfo = unityInfoService.findById(id);
-        return ResultGenerator.genSuccessResult(unityInfo);
     }
 
     /**
@@ -80,16 +58,6 @@ public class UnityInfoController {
         List<UnityInfo> list = unityInfoService.list(pageParam, queryDTO);
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
-    }
-
-    /**
-     * 下拉框查询所有
-     */
-    @ApiOperation(value = "unity资源列表查询所有", notes = "下拉框列表", produces = "application/json")
-    @GetMapping(value = "/all")
-    public RestResult listAll() {
-        List<UnityInfo> list = unityInfoService.findAll();
-        return ResultGenerator.genSuccessResult(list);
     }
 
     @ApiOperation(value = "unity资源字段校验", notes = "参数字段校验", produces = "application/json")

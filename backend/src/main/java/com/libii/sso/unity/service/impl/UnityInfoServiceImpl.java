@@ -4,6 +4,7 @@ import com.libii.sso.common.core.AbstractService;
 import com.libii.sso.common.model.Constant;
 import com.libii.sso.common.util.LocalCdnUtil;
 import com.libii.sso.common.utils.date.DateUtils;
+import com.libii.sso.common.zip.FileUtil;
 import com.libii.sso.common.zip.ZipUtil;
 import com.libii.sso.unity.dao.UnityInfoMapper;
 import com.libii.sso.unity.domain.UnityInfo;
@@ -24,6 +25,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -119,6 +121,23 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
             info.setCreateTime(date);
             info.setStatus(Constant.STATUS_ENABLE);
             unityInfoMapper.insert(info);
+        }
+    }
+
+    @Override
+    public void deleteUnity(Integer id) {
+        UnityInfo unityInfo = unityInfoMapper.selectByPrimaryKey(id);
+        String dir = test_path + unityInfo.getCode() + "/" + unityInfo.getVersion();
+        try {
+            FileUtil.deleteFile(dir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (unityInfo.getStatus() == Constant.STATUS_TEST){
+            unityInfoMapper.deleteByPrimaryKey(id);
+        }else {
+            unityInfo.setLocalPath(null);
+            unityInfoMapper.updateByPrimaryKeySelective(unityInfo);
         }
     }
 }

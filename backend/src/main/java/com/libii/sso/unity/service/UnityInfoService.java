@@ -29,4 +29,6 @@ public interface UnityInfoService extends Service<UnityInfo> {
      * @param inputDTO
      */
     void upload(UnityInputDTO inputDTO);
+
+    void deleteUnity(Integer id);
 }
