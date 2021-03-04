@@ -101,6 +101,7 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
             try {
                 // 文件写到磁盘
                 file.transferTo(tempFile);
+                // 上传到CDN
                 if (status == Constant.STATUS_PROD) {
                     ZipUtil.unZip(tempFile, obsClient, bucket, basePath);
                 }
@@ -119,7 +120,7 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
             info.setLocalPath(test_url + basePath + "index.html");
             info.setCdnPath(cdn_server + basePath + "index.html");
             info.setCreateTime(date);
-            info.setStatus(Constant.STATUS_ENABLE);
+            info.setStatus(status);
             unityInfoMapper.insert(info);
         }
     }
