@@ -128,6 +128,7 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
     public void deleteUnity(Integer id) {
         UnityInfo unityInfo = unityInfoMapper.selectByPrimaryKey(id);
         String dir = test_path + Constant.PROJECT + "/" + unityInfo.getCode() + "/" + unityInfo.getVersion();
+        System.out.println("path: "+dir);
         try {
             FileUtil.deleteFile(dir);
         } catch (IOException e) {
