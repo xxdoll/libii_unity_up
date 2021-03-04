@@ -105,7 +105,7 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
                     ZipUtil.unZip(tempFile, obsClient, bucket, basePath);
                 }
                 // 解压到服务器目录
-                ZipUtil.unZip(tempFile, test_path + basePath);
+                ZipUtil.unZip(tempFile, test_path + Constant.PROJECT + "/" + basePath);
                 boolean delete = tempFile.delete();
                 log.info("本地压缩包已删除： " + delete);
             } catch (Exception e) {
