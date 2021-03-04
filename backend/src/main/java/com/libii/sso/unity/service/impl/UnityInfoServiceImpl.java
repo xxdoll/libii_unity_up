@@ -137,7 +137,7 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
         if (unityInfo.getStatus() == Constant.STATUS_TEST){
             unityInfoMapper.deleteByPrimaryKey(id);
         }else {
-            unityInfo.setLocalPath(null);
+            unityInfo.setLocalPath("");
             unityInfoMapper.updateByPrimaryKeySelective(unityInfo);
         }
     }
