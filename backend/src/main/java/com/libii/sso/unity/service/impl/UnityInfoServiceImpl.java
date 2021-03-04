@@ -98,12 +98,14 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
             Date date = new Date();
             String version = DateUtils.DateToString(date, "yyyyMMddHHmmss");
             String basePath = code + "/" + version + "/";
+            UnityInfo info = new UnityInfo();
             try {
                 // 文件写到磁盘
                 file.transferTo(tempFile);
                 // 上传到CDN
                 if (status == Constant.STATUS_PROD) {
                     ZipUtil.unZip(tempFile, obsClient, bucket, basePath);
+                    info.setCdnPath(cdn_server + basePath + "index.html");
                 }
                 // 解压到服务器目录
                 ZipUtil.unZip(tempFile, test_path + Constant.PROJECT + "/" + basePath);
@@ -113,12 +115,11 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
                 log.info(e.getMessage());
                 throw new RuntimeException("上传文件异常:");
             }
-            UnityInfo info = new UnityInfo();
+
             info.setName(name);
             info.setCode(code);
             info.setVersion(version);
             info.setLocalPath(test_url + basePath + "index.html");
-            info.setCdnPath(cdn_server + basePath + "index.html");
             info.setCreateTime(date);
             info.setStatus(status);
             unityInfoMapper.insert(info);
