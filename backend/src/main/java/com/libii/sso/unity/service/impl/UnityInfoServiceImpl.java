@@ -108,7 +108,7 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
                     info.setCdnPath(cdn_server + basePath + "index.html");
                 }
                 // 解压到服务器目录
-                ZipUtil.unZip(tempFile, test_path + Constant.PROJECT + "/" + basePath);
+                ZipUtil.unZip(tempFile, test_path + basePath);
                 boolean delete = tempFile.delete();
                 log.info("本地压缩包已删除： " + delete);
             } catch (Exception e) {
@@ -129,7 +129,7 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
     @Override
     public void deleteUnity(Integer id) {
         UnityInfo unityInfo = unityInfoMapper.selectByPrimaryKey(id);
-        String dir = test_path + Constant.PROJECT + "/" + unityInfo.getCode() + "/" + unityInfo.getVersion();
+        String dir = test_path + unityInfo.getCode() + "/" + unityInfo.getVersion();
         try {
             FileUtil.deleteFile(dir);
         } catch (IOException e) {
