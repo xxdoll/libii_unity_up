@@ -102,9 +102,9 @@ cdn:
   secretKey: oJ2R07XKzqyOvF75ArURCf35MatchBi6miXF1p5D
   endPoint: https://obs.cn-east-2.myhuaweicloud.com
   # CDN 配置
-  bucket: lr-test
+  bucket: h5gcdn
   # cdn的server
-  server: http://lr-test.libii.cn/
+  server: https://h5gcdn.hippotap.cn/
 
 test:
   # 测试服资源访问地址
