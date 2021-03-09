@@ -1,7 +1,9 @@
 package com.libii.sso.unity.service.impl;
 
 import com.libii.sso.common.core.AbstractService;
+import com.libii.sso.common.exception.CustomException;
 import com.libii.sso.common.model.Constant;
+import com.libii.sso.common.restResult.ResultCode;
 import com.libii.sso.common.util.LocalCdnUtil;
 import com.libii.sso.common.utils.date.DateUtils;
 import com.libii.sso.common.zip.FileUtil;
@@ -20,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import tk.mybatis.mapper.entity.Example;
 
@@ -92,6 +95,15 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
                 throw new RuntimeException("传入文件格式错误" + fileName);
             }
             String version = fileName.substring(0, fileName.lastIndexOf(".zip"));
+            // 判断服务器是否有此版本的资源
+            Example example = new Example(UnityInfo.class);
+            example.and().andEqualTo("code", code)
+                    .andEqualTo("version", version);
+            int count = unityInfoMapper.selectCountByExample(example);
+            if (count != 0){
+                throw new CustomException(ResultCode.VERSION_IS_EXIST);
+            }
+
             // 保存文件到服务器并解压
             File tempFile = new File(test_path + "/temp.zip");
             ObsClient obsClient = cdnUtil.getObsClient();

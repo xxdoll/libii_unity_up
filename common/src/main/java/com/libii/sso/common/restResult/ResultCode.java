@@ -36,6 +36,7 @@ public enum ResultCode {
 
     IP_NOT_ALLOW(-980, "登录的IP不被允许"),
 
+    VERSION_IS_EXIST(2001, "此版本的项目已存在"),
 
 
     /**
