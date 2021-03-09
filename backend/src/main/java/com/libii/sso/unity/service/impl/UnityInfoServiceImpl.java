@@ -91,12 +91,13 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
             if (!fileName.endsWith("zip")) {
                 throw new RuntimeException("传入文件格式错误" + fileName);
             }
+            String version = fileName.substring(0, fileName.lastIndexOf(".zip"));
             // 保存文件到服务器并解压
             File tempFile = new File(test_path + "/temp.zip");
             ObsClient obsClient = cdnUtil.getObsClient();
             String bucket = cdnUtil.getBucket();
             Date date = new Date();
-            String version = DateUtils.DateToString(date, "yyyyMMddHHmmss");
+//            String version = DateUtils.DateToString(date, "yyyyMMddHHmmss");
             String basePath = code + "/" + version + "/";
             UnityInfo info = new UnityInfo();
             try {
