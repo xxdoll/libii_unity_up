@@ -36,7 +36,11 @@ public class UnityInfoController {
     @PostMapping(value = "/upload")
     @ApiOperation(value = "上传unity压缩包", notes = "上传" , produces = "application/json")
     public RestResult upload(@ApiParam(name = "上传参数") UnityInputDTO inputDTO) {
-        unityInfoService.upload(inputDTO);
+        try {
+            unityInfoService.upload(inputDTO);
+        }catch (Exception e){
+            return ResultGenerator.genFailResult(e.getMessage());
+        }
         return ResultGenerator.genSuccessResult().setMessage("上传成功");
     }
 

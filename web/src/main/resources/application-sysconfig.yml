@@ -1,16 +1,3 @@
-# SSO-Client 配置信息
-security:
-  oauth2:
-    client:
-      client-id: unity_up
-      client-secret: 123456
-      user-authorization-uri: ${auth-server}/oauth/authorize
-      access-token-uri: ${auth-server}/oauth/token
-    resource:
-      jwt:
-        key-uri: ${auth-server}/oauth/token_key
-      userInfoUri: ${auth-server}/user/sso
-
 # Druid 连接池需要为不同war包指定不同的实例化名称
 spring:
   jmx:
@@ -40,7 +27,7 @@ mapper:
 # 日志
 logging.config: classpath:logging-spring.xml
 swagger:
-  title: 后台单点登录客户端模板系统
+  title: unity资源上传系统
   basepackage: com.libii.sso
   version: 1.0.0
   contract-name: lirong

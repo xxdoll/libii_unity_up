@@ -89,13 +89,6 @@ spring:
   jpa:
     open-in-view: false
 
-# 认证中心地址
-auth-server: https://sso.libii.cn
-auth-platforms: https://login.libii.cn/#/platforms
-
-# 基础管理系统地址
-base-data-server: http://common.service.libii.cn/base_data
-
 custom:
   config:
     ignores:

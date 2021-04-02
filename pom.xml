@@ -7,7 +7,6 @@
         <module>web</module>
         <module>backend</module>
         <module>common</module>
-        <module>security</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

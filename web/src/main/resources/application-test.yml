@@ -89,13 +89,6 @@ spring:
   jpa:
     open-in-view: false
 
-# 认证中心地址
-auth-server: http://192.168.0.23:9999
-auth-platforms: http://192.168.0.23:28012/#/platforms
-
-# 基础管理系统地址
-base-data-server: http://192.168.0.23:9090/base_data
-
 # OBS 配置
 cdn:
   accessKey: EV6YS2YONZHD3I8EB8NL
@@ -129,4 +122,4 @@ custom:
         - "/webjars/**"
         - "/swagger-resources/**"
         - "/doc.html"
-        - "/**"
+#        - "/**"
