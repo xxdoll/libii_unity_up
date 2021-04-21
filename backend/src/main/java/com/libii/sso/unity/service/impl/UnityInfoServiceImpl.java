@@ -7,6 +7,7 @@ import com.libii.sso.common.restResult.ResultCode;
 import com.libii.sso.common.util.LocalCdnUtil;
 import com.libii.sso.common.utils.date.DateUtils;
 import com.libii.sso.common.zip.FileUtil;
+import com.libii.sso.common.zip.FileUtils;
 import com.libii.sso.common.zip.ZipUtil;
 import com.libii.sso.unity.dao.UnityInfoMapper;
 import com.libii.sso.unity.domain.UnityInfo;
@@ -28,7 +29,9 @@ import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.Date;
 import java.util.List;
 
@@ -103,21 +106,22 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
             if (count != 0){
                 throw new CustomException(ResultCode.VERSION_IS_EXIST);
             }
-
             // 保存文件到服务器并解压
-            File tempFile = new File(test_path + "/temp.zip");
-            ObsClient obsClient = cdnUtil.getObsClient();
-            String bucket = cdnUtil.getBucket();
             Date date = new Date();
 //            String version = DateUtils.DateToString(date, "yyyyMMddHHmmss");
             String basePath = code + "/" + version + "/";
+            File tempFile = new File(test_path + basePath + "temp.zip");
             UnityInfo info = new UnityInfo();
             try {
-                // 文件写到磁盘
-                file.transferTo(tempFile);
+                // 文件写到磁盘 NIO的方式
+                 FileUtils.saveFile(file, tempFile);
+                // 普通的方式
+//                 file.transferTo(tempFile);
                 // 上传到CDN
                 if (status == Constant.STATUS_PROD) {
-                    ZipUtil.unZip(tempFile, obsClient, bucket, basePath);
+                    ObsClient obsClient = cdnUtil.getObsClient();
+                    String bucket = cdnUtil.getBucket();
+                    ZipUtil.unZipToCDN(tempFile, obsClient, bucket, basePath);
                     info.setCdnPath(cdn_server + basePath + "index.html");
                 }
                 // 解压到服务器目录
@@ -128,7 +132,6 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
                 log.info(e.getMessage());
                 throw new RuntimeException("上传文件异常:");
             }
-
             info.setName(name);
             info.setCode(code);
             info.setVersion(version);

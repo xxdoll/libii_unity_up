@@ -224,7 +224,7 @@ public class ZipUtil {
      * @param basePath
      * @throws RuntimeException
      */
-    public static void unZip(File srcFile, ObsClient obsClient, String bucket, String basePath) throws RuntimeException {
+    public static void unZipToCDN(File srcFile, ObsClient obsClient, String bucket, String basePath) throws RuntimeException {
         long start = System.currentTimeMillis();
         // 判断源文件是否存在
         if (!srcFile.exists()) {
@@ -290,9 +290,7 @@ public class ZipUtil {
             throw new RuntimeException(srcFile.getPath() + "所指文件不存在");
         }
         // 开始解压
-        ZipFile zipFile = null;
-        try {
-            zipFile = new ZipFile(srcFile);
+        try(ZipFile zipFile = new ZipFile(srcFile)) {
             Enumeration<?> entries = zipFile.entries();
             while (entries.hasMoreElements()) {
                 ZipEntry entry = (ZipEntry) entries.nextElement();
@@ -313,7 +311,7 @@ public class ZipUtil {
                     InputStream is = zipFile.getInputStream(entry);
                     FileOutputStream fos = new FileOutputStream(targetFile);
                     int len;
-                    byte[] buf = new byte[1024];
+                    byte[] buf = new byte[8192];
                     while ((len = is.read(buf)) != -1) {
                         fos.write(buf, 0, len);
                     }
@@ -327,14 +325,7 @@ public class ZipUtil {
         } catch (Exception e) {
             log.info(e.getMessage());
             throw new RuntimeException("unzip error from ZipUtils", e);
-        } finally {
-            if(zipFile != null){
-                try {
-                    zipFile.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
+
 }

@@ -62,7 +62,7 @@ spring:
   servlet:
     multipart:
       # 单个文件大小
-      max-file-size: 500MB
+      max-file-size: 1024MB
       # 一次传多个文件的总大小
       max-request-size: 1024MB
 
@@ -96,8 +96,10 @@ cdn:
   endPoint: https://obs.cn-east-2.myhuaweicloud.com
   # CDN 配置
   bucket: h5gcdn
+#  bucket: hcg62file
   # cdn的server
   server: https://h5gcdn.hippotap.cn/
+#  server: https://hcg62cdn.libii.cn/
 
 test:
   # 测试服资源访问地址

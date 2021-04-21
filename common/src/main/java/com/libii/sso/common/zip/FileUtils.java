@@ -1,5 +1,6 @@
 package com.libii.sso.common.zip;
 
+import cn.hutool.core.date.DateUtil;
 import com.libii.sso.common.exception.CustomException;
 import com.libii.sso.common.restResult.ResultCode;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -8,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.math.BigInteger;
+import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -168,5 +170,37 @@ public class FileUtils {
 			output.write(buffer, 0, n);
 		}
 		return output.toByteArray();
+	}
+
+	/**
+	 * NIO 拷贝文件
+	 * @param srcFile
+	 * @param targetFile
+	 */
+	public static void saveFile(File srcFile, File targetFile) {
+		try(FileChannel in = new FileInputStream(srcFile).getChannel();
+			FileChannel out = new FileOutputStream(targetFile).getChannel()) {
+			in.transferTo(0, in.size(), out);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * NIO 拷贝文件
+	 * @param srcFile
+	 * @param targetFile
+	 */
+	public static void saveFile(MultipartFile srcFile, File targetFile) {
+		// 保证这个文件的父文件夹必须要存在
+		if(!targetFile.getParentFile().exists()){
+			targetFile.getParentFile().mkdirs();
+		}
+		try(FileChannel in = ((FileInputStream) srcFile.getInputStream()).getChannel();
+			FileChannel out = new FileOutputStream(targetFile).getChannel()) {
+			in.transferTo(0, in.size(), out);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
