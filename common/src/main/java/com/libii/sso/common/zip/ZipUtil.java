@@ -7,6 +7,7 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -290,7 +291,7 @@ public class ZipUtil {
             throw new RuntimeException(srcFile.getPath() + "所指文件不存在");
         }
         // 开始解压
-        try(ZipFile zipFile = new ZipFile(srcFile)) {
+        try(ZipFile zipFile = new ZipFile(srcFile, Charset.forName("gbk"))) {
             Enumeration<?> entries = zipFile.entries();
             while (entries.hasMoreElements()) {
                 ZipEntry entry = (ZipEntry) entries.nextElement();
