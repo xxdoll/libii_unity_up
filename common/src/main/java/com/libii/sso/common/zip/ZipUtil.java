@@ -234,7 +234,7 @@ public class ZipUtil {
         // 开始解压
         ZipFile zipFile = null;
         try {
-            zipFile = new ZipFile(srcFile);
+            zipFile = new ZipFile(srcFile, Charset.forName("gbk"));
             Enumeration<?> entries = zipFile.entries();
             ExecutorService es = Executors.newFixedThreadPool(4);
             while (entries.hasMoreElements()) {
