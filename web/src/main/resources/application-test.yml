@@ -62,9 +62,9 @@ spring:
   servlet:
     multipart:
       # 单个文件大小
-      max-file-size: 1024MB
+      max-file-size: 2048MB
       # 一次传多个文件的总大小
-      max-request-size: 1024MB
+      max-request-size: 2048MB
 
   #redis
   redis:
