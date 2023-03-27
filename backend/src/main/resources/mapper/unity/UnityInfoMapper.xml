@@ -15,4 +15,9 @@
     <result column="cdn_path" jdbcType="VARCHAR" property="cdnPath" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
+
+  <select id="getAllVersions" parameterType="String" resultType="String">
+     SELECT version FROM `unity_info` WHERE code=#{code}
+  </select>
+
 </mapper>

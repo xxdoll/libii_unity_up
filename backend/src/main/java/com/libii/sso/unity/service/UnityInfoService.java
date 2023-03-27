@@ -35,4 +35,6 @@ public interface UnityInfoService extends Service<UnityInfo> {
     void uploadConfig(ConfigInputDTO inputDTO);
 
     void deleteUnity(Integer id);
+
+    List<String> versions(String code);
 }

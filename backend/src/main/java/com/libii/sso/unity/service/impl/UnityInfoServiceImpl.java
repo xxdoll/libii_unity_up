@@ -184,4 +184,10 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
             unityInfoMapper.updateByPrimaryKeySelective(unityInfo);
         }
     }
+
+    @Override
+    public List<String> versions(String code) {
+        return unityInfoMapper.getAllVersions(code);
+    }
+
 }
