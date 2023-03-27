@@ -1,6 +1,7 @@
 package com.libii.sso.web.controller.unity;
 
 import com.libii.sso.unity.domain.UnityInfo;
+import com.libii.sso.unity.dto.ConfigInputDTO;
 import com.libii.sso.unity.dto.QueryUnityDTO;
 import com.libii.sso.unity.dto.UnityInputDTO;
 import com.libii.sso.unity.service.UnityInfoService;
@@ -14,10 +15,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 /**
 *
@@ -37,12 +36,25 @@ public class UnityInfoController {
     @ApiOperation(value = "上传unity压缩包", notes = "上传" , produces = "application/json")
     public RestResult upload(@ApiParam(name = "上传参数") UnityInputDTO inputDTO) {
         try {
-            unityInfoService.upload(inputDTO);
+            unityInfoService.uploadArchive(inputDTO);
         }catch (Exception e){
             return ResultGenerator.genFailResult(e.getMessage());
         }
         return ResultGenerator.genSuccessResult().setMessage("上传成功");
     }
+
+    @PostMapping(value = "/config")
+    @ApiOperation(value = "上传配置文件", notes = "上传" ,  produces = "application/json")
+    public RestResult uploadConfig(@ApiParam(name = "上传参数") ConfigInputDTO inputDTO) {
+        try {
+            unityInfoService.uploadConfig(inputDTO);
+        }catch (Exception e){
+            return ResultGenerator.genFailResult(e.getMessage());
+        }
+        return ResultGenerator.genSuccessResult().setMessage("上传成功");
+    }
+
+
 
     @DeleteMapping
     @ApiOperation(value = "删除unity资源", notes = "单个删除", produces = "application/json")
