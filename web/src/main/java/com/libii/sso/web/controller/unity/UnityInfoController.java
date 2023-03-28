@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Generate
@@ -84,7 +85,7 @@ public class UnityInfoController {
     @ApiOperation(value = "根据ID获取所有版本", notes = "根据ID获取所有版本", produces = "application/json")
     @GetMapping(value = "/versions")
     public RestResult versions(@RequestParam String code) {
-        List<String> versions = unityInfoService.versions(code);
+        Map<String, List<String>> versions = unityInfoService.versions(code);
         return ResultGenerator.genSuccessResult(versions);
     }
 

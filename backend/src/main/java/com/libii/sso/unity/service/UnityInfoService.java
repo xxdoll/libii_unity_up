@@ -8,6 +8,7 @@ import com.libii.sso.unity.dto.QueryUnityDTO;
 import com.libii.sso.unity.dto.UnityInputDTO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Generate
@@ -35,6 +36,5 @@ public interface UnityInfoService extends Service<UnityInfo> {
     void uploadConfig(ConfigInputDTO inputDTO);
 
     void deleteUnity(Integer id);
-
-    List<String> versions(String code);
+    Map<String, List<String>> versions(String code);
 }

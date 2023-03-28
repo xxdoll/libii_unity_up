@@ -31,8 +31,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Generate
@@ -185,9 +184,26 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
         }
     }
 
-    @Override
-    public List<String> versions(String code) {
-        return unityInfoMapper.getAllVersions(code);
-    }
+    public Map<String, List<String>> versions(String code) {
 
+        Example example = new Example(UnityInfo.class);
+        example.and().andEqualTo("code", code);
+        List<UnityInfo> unityInfos = unityInfoMapper.selectByExample(example);
+
+        List<String> online = new ArrayList<>();
+        List<String> test = new ArrayList<>();
+        unityInfos.forEach(info -> {
+            if (info.getStatus() == 2) {
+                online.add(info.getVersion());
+            } else {
+                test.add(info.getVersion());
+            }
+        });
+
+        Map<String, List<String>> map = new HashMap<>();
+        map.put("online", online);
+        map.put("test", test);
+
+        return map;
+    }
 }
