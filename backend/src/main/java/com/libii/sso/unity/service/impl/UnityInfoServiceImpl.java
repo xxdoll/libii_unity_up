@@ -1,5 +1,6 @@
 package com.libii.sso.unity.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.libii.sso.common.core.AbstractService;
 import com.libii.sso.common.exception.CustomException;
@@ -31,6 +32,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -143,13 +145,19 @@ public class UnityInfoServiceImpl extends AbstractService<UnityInfo> implements 
     }
 
     @Override
-    public void uploadConfig(ConfigInputDTO inputDTO) {
+    public void uploadConfig(ConfigInputDTO inputDTO) throws Exception {
         MultipartFile file = inputDTO.getConfigFile();
         String projectCode = inputDTO.getCode();
         if (null != file && !file.isEmpty()) {
             String fileName = file.getOriginalFilename();
             if (!"config.json".equals(fileName)) {
                 throw new RuntimeException("传入文件名有误,必须是config.json");
+            }
+
+            String gameID = JSON.parseObject(new String(file.getBytes(), StandardCharsets.UTF_8))
+                    .getString("gameID");
+            if (!Objects.equals(projectCode, gameID)) {
+                throw new RuntimeException("项目编码不匹配,上传失败");
             }
 
             String filePath = test_path + "/" + projectCode + "/" + fileName;

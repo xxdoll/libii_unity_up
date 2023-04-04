@@ -7,6 +7,7 @@ import com.libii.sso.unity.dto.ConfigInputDTO;
 import com.libii.sso.unity.dto.QueryUnityDTO;
 import com.libii.sso.unity.dto.UnityInputDTO;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,7 @@ public interface UnityInfoService extends Service<UnityInfo> {
      */
     void uploadArchive(UnityInputDTO inputDTO);
 
-    void uploadConfig(ConfigInputDTO inputDTO);
+    void uploadConfig(ConfigInputDTO inputDTO) throws Exception;
 
     void deleteUnity(Integer id);
     Map<String, List<String>> versions(String code);
