@@ -1,15 +1,14 @@
 package com.libii.sso.web.controller.unity;
 
+import com.github.pagehelper.PageInfo;
+import com.libii.sso.common.restResult.PageParam;
+import com.libii.sso.common.restResult.RestResult;
+import com.libii.sso.common.restResult.ResultGenerator;
 import com.libii.sso.unity.domain.UnityInfo;
 import com.libii.sso.unity.dto.ConfigInputDTO;
 import com.libii.sso.unity.dto.QueryUnityDTO;
 import com.libii.sso.unity.dto.UnityInputDTO;
 import com.libii.sso.unity.service.UnityInfoService;
-import com.libii.sso.common.restResult.RestResult;
-import com.libii.sso.common.restResult.ResultGenerator;
-import com.libii.sso.common.restResult.PageParam;
-
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -18,12 +17,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 /**
-*
-* @author Generate
-* @Description:
-* @date 2021-03-01 03:18:38
-*/
+ * @author Generate
+ * @Description:
+ * @date 2021-03-01 03:18:38
+ */
 @Slf4j
 @RestController
 @RequestMapping("/unity")
@@ -33,27 +33,26 @@ public class UnityInfoController {
     private UnityInfoService unityInfoService;
 
     @PostMapping(value = "/upload")
-    @ApiOperation(value = "上传unity压缩包", notes = "上传" , produces = "application/json")
+    @ApiOperation(value = "上传unity压缩包", notes = "上传", produces = "application/json")
     public RestResult upload(@ApiParam(name = "上传参数") UnityInputDTO inputDTO) {
         try {
             unityInfoService.uploadArchive(inputDTO);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResultGenerator.genFailResult(e.getMessage());
         }
         return ResultGenerator.genSuccessResult().setMessage("上传成功");
     }
 
     @PostMapping(value = "/config")
-    @ApiOperation(value = "上传配置文件", notes = "上传" ,  produces = "application/json")
+    @ApiOperation(value = "上传配置文件", notes = "上传", produces = "application/json")
     public RestResult uploadConfig(@ApiParam(name = "上传参数") ConfigInputDTO inputDTO) {
         try {
             unityInfoService.uploadConfig(inputDTO);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResultGenerator.genFailResult(e.getMessage());
         }
         return ResultGenerator.genSuccessResult().setMessage("上传成功");
     }
-
 
 
     @DeleteMapping
@@ -81,6 +80,13 @@ public class UnityInfoController {
     public RestResult keyIsExist(String domainField, String value) {
         Integer integer = unityInfoService.keyIsExist(domainField, value);
         return ResultGenerator.genSuccessResult(integer);
+    }
+
+    @ApiOperation(value = "根据ID获取所有版本", notes = "根据ID获取所有版本", produces = "application/json")
+    @GetMapping(value = "/versions")
+    public RestResult versions(@RequestParam String code) {
+        Map<String, List<String>> versions = unityInfoService.versions(code);
+        return ResultGenerator.genSuccessResult(versions);
     }
 
 }
