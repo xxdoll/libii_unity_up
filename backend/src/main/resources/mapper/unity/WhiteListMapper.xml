@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.libii.sso.unity.dao.WhiteListMapper">
+    <resultMap id="BaseResultMap" type="com.libii.sso.unity.domain.WhiteListInfo">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="game_id" jdbcType="VARCHAR" property="gameId"/>
+        <result column="device_id" jdbcType="VARCHAR" property="deviceId"/>
+    </resultMap>
+
+    <resultMap id="WhiteListMap" type="com.libii.sso.unity.dto.WhiteListOutputDTO">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="game_id" jdbcType="VARCHAR" property="gameId"/>
+        <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    </resultMap>
+    <select id="list" resultMap="WhiteListMap">
+        select distinct
+                        gdi.game_id,
+                        gdi.create_time,
+                        di.device_id,
+                        di.description
+        from game_device_info gdi
+            join device_info di on gdi.device_id=di.device_id
+        where 1=1
+        <if test="null != dto.gameId and dto.gameId != ''">
+          and gdi.game_id = #{dto.gameId}
+        </if>
+        <if test="null != dto.deviceId and dto.deviceId != ''">
+          and gdi.device_id = #{dto.deviceId}
+        </if>
+        order by gdi.create_time desc
+    </select>
+
+    <delete id="deleteByDevice">
+        delete from game_device_info where device_id = #{deviceId}
+    </delete>
+    <delete id="deleteWhiteList">
+        delete from game_device_info where game_id=#{dto.gameId} AND device_id = #{dto.deviceId}
+    </delete>
+</mapper>

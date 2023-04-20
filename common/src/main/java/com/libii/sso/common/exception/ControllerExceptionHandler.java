@@ -3,12 +3,20 @@ package com.libii.sso.common.exception;
 import com.libii.sso.common.restResult.RestResult;
 import com.libii.sso.common.restResult.ResultGenerator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Controller异常处理->返回前端
@@ -28,6 +36,22 @@ public class ControllerExceptionHandler {
      */
     public static final String MESSAGE = "message";
 
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public Map<String, Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        Map<String, Object> result = new HashMap<>();
+        BindingResult bindingResult = ex.getBindingResult();
+        StringBuilder sb = new StringBuilder("校验失败:");
+        for (FieldError fieldError : bindingResult.getFieldErrors()) {
+            sb.append(fieldError.getField()).append("：").append(fieldError.getDefaultMessage()).append("。 ");
+        }
+        String msg = sb.toString();
+        result.put(CODE, 400);
+        result.put(MESSAGE, msg);
+        return result;
+    }
     /**
      * 处理异常的类型
      *

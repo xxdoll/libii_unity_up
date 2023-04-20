@@ -126,3 +126,5 @@ custom:
         - "/swagger-resources/**"
         - "/doc.html"
 #        - "/**"
+timed-task:
+  white-list-refresh-cycle: 3000

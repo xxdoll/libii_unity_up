@@ -50,6 +50,13 @@ public enum ResultCode {
 
     FILE_UPLOAD_ERROR(6001, "资源包上传失败"),
 
+    /**
+     * 导入导出
+     */
+    DEVICE_ID_EXIST(5001, "设备编号已存在"),
+
+    GAME_DEVICE_EXIST(5002, "当前设备白名单已存在"),
+
     ;
 
 
