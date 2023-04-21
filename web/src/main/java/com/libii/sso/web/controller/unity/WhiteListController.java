@@ -62,10 +62,10 @@ public class WhiteListController {
         return ResultGenerator.genSuccessResult().setMessage("白名单删除成功");
     }
 
-    @GetMapping(value = "/verify")
+    @PostMapping(value = "/verify")
     @ApiOperation(value = "白名单校验", notes = "分页列表", produces = "application/json")
-    public RestResult verify(@Validated WhiteListInputDTO whiteListInputDTO) {
-        Map<String,Integer> result = whiteListService.verify( whiteListInputDTO);
+    public RestResult verify(@RequestBody @Validated WhiteListInputDTO whiteListInputDTO) {
+        Map<String,Integer> result = whiteListService.verify(whiteListInputDTO);
         return ResultGenerator.genSuccessResult(result);
     }
 }
