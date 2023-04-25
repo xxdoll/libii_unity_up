@@ -12,5 +12,6 @@ public interface Mapper<T> extends
         MySqlMapper<T>,
         IdsMapper<T>,
         ConditionMapper<T>,
-        ExampleMapper<T>{
+        ExampleMapper<T>,
+        UpdateBatchByPrimaryKeySelectiveMapper<T>{
 }

@@ -203,4 +203,36 @@ public class FileUtils {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * 删除文件夹（包括其内部的所有文件和文件夹）
+	 * @param directory 要删除的文件夹
+	 * @return true 如果文件夹删除成功，false 如果文件夹删除失败
+	 */
+	public static boolean deleteDirectory(File directory) {
+		if (!directory.exists()) {
+			return true;
+		}
+
+		if (!directory.isDirectory()) {
+			return false;
+		}
+
+		// 获取文件夹中的所有文件和文件夹
+		File[] files = directory.listFiles();
+		if (files != null) {
+			for (File file : files) {
+				if (file.isDirectory()) {
+					// 递归删除子文件夹
+					deleteDirectory(file);
+				} else {
+					// 删除文件
+					file.delete();
+				}
+			}
+		}
+
+		// 删除文件夹本身
+		return directory.delete();
+	}
 }

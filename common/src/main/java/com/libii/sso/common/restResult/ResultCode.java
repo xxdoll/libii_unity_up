@@ -51,12 +51,26 @@ public enum ResultCode {
     FILE_UPLOAD_ERROR(6001, "资源包上传失败"),
 
     /**
-     * 导入导出
+     * 白名单
      */
     DEVICE_ID_EXIST(5001, "设备编号已存在"),
 
     GAME_DEVICE_EXIST(5002, "当前设备白名单已存在"),
 
+    /**
+     * 资源
+     */
+
+    RESOURCE_EXIST(5101, "当前资源已存在"),
+    CDN_RESOURCE_UPLOAD_ERROR(5110, "cdn上传资源失败，请重试"),
+
+    /**
+     * aws上传
+     */
+    AWS_PUT_ERROR(5301, "日历表配置上传失败，请稍后重新上传日历表"),
+    AWS_DELETE_ERROR(5302, "日历表前版本配置删除失败"),
+    AWS_COPY_ERROR(5303, "日历表配置发布失败，请联系管理员"),
+    AWS_ERROR(5304, "日历表传输异常，请联系管理员"),
     ;
 
 

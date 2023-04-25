@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.libii.sso.unity.dao.HotUpdateMapper">
+    <resultMap id="BaseResultMap" type="com.libii.sso.unity.domain.HotUpdateResourceInfo">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="resource_version" jdbcType="VARCHAR" property="resourceVersion" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="is_force_update" jdbcType="BOOLEAN" property="isForceUpdate" />
+        <result column="game_id" jdbcType="VARCHAR" property="gameId" />
+        <result column="platform" jdbcType="VARCHAR" property="platform" />
+        <result column="channel" jdbcType="VARCHAR" property="channel" />
+        <result column="custom_id" jdbcType="VARCHAR" property="customId" />
+        <result column="area" jdbcType="VARCHAR" property="area" />
+        <result column="server_url" jdbcType="VARCHAR" property="serverUrl" />
+        <result column="unity_version" jdbcType="VARCHAR" property="unityVersion" />
+        <result column="app_version_str" jdbcType="VARCHAR" property="appVersionStr" />
+        <result column="app_version_num" jdbcType="INTEGER" property="appVersionNum" />
+        <result column="min_app_version_str" jdbcType="VARCHAR" property="minAppVersionStr" />
+        <result column="max_app_version_str" jdbcType="VARCHAR" property="maxAppVersionStr" />
+        <result column="min_app_version_num" jdbcType="INTEGER" property="minAppVersionNum" />
+        <result column="max_app_version_num" jdbcType="INTEGER" property="maxAppVersionNum" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+</mapper>
