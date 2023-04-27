@@ -1,14 +1,11 @@
-package com.libii.sso.s3.service.impl;
+package com.libii.sso.common.zip;
 
-import com.libii.sso.common.zip.Work;
-import com.libii.sso.s3.service.ObsOperationService;
 import com.obs.services.ObsClient;
 import com.obs.services.model.DeleteObjectResult;
 import com.obs.services.model.ObsObject;
 import com.obs.services.model.PutObjectResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
@@ -31,9 +28,8 @@ import java.util.zip.ZipFile;
  */
 
 @Configuration
-@ConditionalOnProperty(name = "local-server.s3server-type", havingValue="Huawei")
 @Slf4j
-public class HuaweiObsOperationServiceImpl implements ObsOperationService {
+public class HuaweiObsUtil {
 
     @Value("${huawei.obs.access-key}")
     private String accessKey;
@@ -61,8 +57,6 @@ public class HuaweiObsOperationServiceImpl implements ObsOperationService {
         obsClient = new ObsClient(accessKey, secretKey, endPoint);
     }
 
-
-    @Override
     public void uploadJson(String key , String jsonStr){
         uploadFileByFlow(key,new ByteArrayInputStream(jsonStr.getBytes()));
     }
@@ -91,7 +85,6 @@ public class HuaweiObsOperationServiceImpl implements ObsOperationService {
      * @param key 删除key
      * @throws IOException
      */
-    @Override
     public void deleteFile(String key){
         DeleteObjectResult result = obsClient.deleteObject(bucket, key);
         log.debug("删除成功：" + result.getObjectKey());
@@ -103,7 +96,6 @@ public class HuaweiObsOperationServiceImpl implements ObsOperationService {
      * @param targetKey 目标key
      * @throws IOException
      */
-    @Override
     public void copyFile(String sourceKey, String targetKey) {
         obsClient.copyObject(bucket,sourceKey,bucket,targetKey);
     }
@@ -114,7 +106,6 @@ public class HuaweiObsOperationServiceImpl implements ObsOperationService {
      * @param path
      * @throws IOException
      */
-    @Override
     public String getFileStr(String path){
         ObsObject object = obsClient.getObject(bucket, path);
         InputStream objectContent = object.getObjectContent();
@@ -129,7 +120,6 @@ public class HuaweiObsOperationServiceImpl implements ObsOperationService {
         }
     }
 
-    @Override
     public String getServer() {
         return server;
     }
@@ -175,7 +165,6 @@ public class HuaweiObsOperationServiceImpl implements ObsOperationService {
      * @param basePath
      * @throws RuntimeException
      */
-    @Override
     public void unZipToCDN(File srcFile, String basePath) throws RuntimeException {
         long start = System.currentTimeMillis();
         // 判断源文件是否存在
@@ -229,7 +218,6 @@ public class HuaweiObsOperationServiceImpl implements ObsOperationService {
         }
     }
 
-    @Override
     public void close(){
         try {
             obsClient.close();

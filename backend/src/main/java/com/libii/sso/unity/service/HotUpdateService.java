@@ -14,6 +14,8 @@ public interface HotUpdateService extends Service<HotUpdateResourceInfo> {
 
     Map<String, Object> queryResource(HotUpdateResourceQueryDTO queryDTO);
 
+    Map<String, Object> queryTestResource(HotUpdateResourceQueryDTO queryDTO);
+
     List<HotUpdateResourceInfo> list(PageParam pageParam, HotUpdateResourceConditionDTO conditionDTO);
 
     void cut(HotUpdateResourceCutDTO cutDTO);
@@ -23,4 +25,10 @@ public interface HotUpdateService extends Service<HotUpdateResourceInfo> {
     Map<String, Map<String, Map<String, Map<String, Map<String, String>>>>> queryTree();
 
     List<Map<String,Integer>> queryVersion(HotUpdateResourceConditionDTO conditionDTO);
+
+    void pushResourceConfig(Integer id);
+
+    void consumeTestConfig(HotUpdateInetInputDTO inputDTO);
+
+    List<String> queryRepositoryUrl();
 }

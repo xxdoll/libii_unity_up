@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WhiteListConditionDTO {
-    private String gameId;
+    private String bundleId;
 
     private String deviceId;
 }

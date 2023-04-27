@@ -5,7 +5,7 @@
         <!--
           WARNING - @mbg.generated
         -->
-        <result column="game_id" jdbcType="VARCHAR" property="gameId"/>
+        <result column="bundle_id" jdbcType="VARCHAR" property="bundleId"/>
         <result column="device_id" jdbcType="VARCHAR" property="deviceId"/>
     </resultMap>
 
@@ -13,7 +13,7 @@
         <!--
           WARNING - @mbg.generated
         -->
-        <result column="game_id" jdbcType="VARCHAR" property="gameId"/>
+        <result column="bundle_id" jdbcType="VARCHAR" property="bundleId"/>
         <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
         <result column="description" jdbcType="VARCHAR" property="description" />
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -27,8 +27,8 @@
         from game_device_info gdi
             join device_info di on gdi.device_id=di.device_id
         where 1=1
-        <if test="null != dto.gameId and dto.gameId != ''">
-          and gdi.game_id = #{dto.gameId}
+        <if test="null != dto.bundleId and dto.bundleId != ''">
+          and gdi.bundle_id = #{dto.bundleId}
         </if>
         <if test="null != dto.deviceId and dto.deviceId != ''">
           and gdi.device_id = #{dto.deviceId}
@@ -40,6 +40,6 @@
         delete from game_device_info where device_id = #{deviceId}
     </delete>
     <delete id="deleteWhiteList">
-        delete from game_device_info where game_id=#{dto.gameId} AND device_id = #{dto.deviceId}
+        delete from game_device_info where bundle_id=#{dto.bundleId} AND device_id = #{dto.deviceId}
     </delete>
 </mapper>

@@ -19,7 +19,7 @@ import javax.validation.constraints.NotBlank;
 public class WhiteListInputDTO {
 
     @NotBlank
-    private String gameId;
+    private String bundleId;
     @NotBlank
     private String deviceId;
 }

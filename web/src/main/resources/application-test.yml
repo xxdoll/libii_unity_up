@@ -1,6 +1,6 @@
 # 开发环境 和 测试环境 都使用这个配置
 server:
-  port: 9090
+  port: 8086
   # session失效时间
   servlet:
     context-path: /unity_up
@@ -19,8 +19,8 @@ spring:
   # 数据源
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://192.168.0.26:3306/unity_up?useUnicode=true&characterEncoding=UTF-8&useSSL=false&zeroDateTimeBehavior=convertToNull
-    url: jdbc:mysql://192.168.0.144:3306/unity_up?useUnicode=true&characterEncoding=UTF-8&useSSL=false&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://192.168.0.26:3306/unity_up?useUnicode=true&characterEncoding=UTF-8&useSSL=false&zeroDateTimeBehavior=convertToNull
+#    url: jdbc:mysql://192.168.0.144:3306/unity_up?useUnicode=true&characterEncoding=UTF-8&useSSL=false&zeroDateTimeBehavior=convertToNull
     username: root
     password: xuejinyu
 
@@ -126,5 +126,22 @@ custom:
         - "/swagger-resources/**"
         - "/doc.html"
 #        - "/**"
+# 定时任务周期
 timed-task:
-  white-list-refresh-cycle: 3000
+  white-list-refresh-cycle: 10000
+  hot-update-refresh-cycle: 10000
+
+# 华为obs配置
+huawei:
+  obs:
+    accessKey: EV6YS2YONZHD3I8EB8NL
+    secretKey: oJ2R07XKzqyOvF75ArURCf35MatchBi6miXF1p5D
+    endPoint: https://obs.cn-east-2.myhuaweicloud.com
+    bucket: lr-test
+    server: http://lr-test.libii.cn/
+
+prod-env-push-url: http://127.0.0.1:8087/unity_up/
+
+repository-url:
+  - http://lr-test.libii.cn
+  - http://192.168.0.21:8088

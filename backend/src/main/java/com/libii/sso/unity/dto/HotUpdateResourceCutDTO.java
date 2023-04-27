@@ -3,13 +3,6 @@ package com.libii.sso.unity.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
-import java.util.Date;
 
 /**
  * @author: fengchenxin
@@ -34,6 +27,11 @@ public class HotUpdateResourceCutDTO {
      *  是否强制更新版本 0-不强更 1-强更
      */
     private Boolean isForceUpdate;
+
+    /**
+     *  资源服务器地址
+     */
+    private String serverUrl;
 
     /**
      *  地区(待定)

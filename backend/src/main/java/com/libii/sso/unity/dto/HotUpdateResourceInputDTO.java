@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 /**
  * @author: fengchenxin
@@ -31,7 +30,7 @@ public class HotUpdateResourceInputDTO {
      *  游戏ID
      */
     @NotBlank
-    private String gameId;
+    private String bundleId;
 
     /**
      *  平台

@@ -9,7 +9,7 @@
         <result column="resource_version" jdbcType="VARCHAR" property="resourceVersion" />
         <result column="status" jdbcType="INTEGER" property="status" />
         <result column="is_force_update" jdbcType="BOOLEAN" property="isForceUpdate" />
-        <result column="game_id" jdbcType="VARCHAR" property="gameId" />
+        <result column="bundle_id" jdbcType="VARCHAR" property="bundleId" />
         <result column="platform" jdbcType="VARCHAR" property="platform" />
         <result column="channel" jdbcType="VARCHAR" property="channel" />
         <result column="custom_id" jdbcType="VARCHAR" property="customId" />

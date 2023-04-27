@@ -44,8 +44,8 @@ public class HotUpdateResourceInfo {
     /**
      *  游戏ID
      */
-    @Column(name = "game_id")
-    private String gameId;
+    @Column(name = "bundle_id")
+    private String bundleId;
 
     /**
      *  平台

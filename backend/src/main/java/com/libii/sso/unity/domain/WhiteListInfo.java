@@ -22,8 +22,8 @@ import java.util.Date;
 @Table(name = "game_device_info")
 public class WhiteListInfo {
     @Id
-    @Column(name = "game_id")
-    private String gameId;
+    @Column(name = "bundle_id")
+    private String bundleId;
 
     @Column(name = "device_id")
     private String deviceId;

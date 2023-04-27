@@ -4,9 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import java.util.Date;
-
 /**
  * @author: fengchenxin
  * @ClassName: HotUpdateResourceConditionDTO
@@ -23,7 +20,7 @@ public class HotUpdateResourceConditionDTO {
     /**
      *  游戏ID
      */
-    private String gameId;
+    private String bundleId;
 
     /**
      *  平台

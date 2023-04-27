@@ -50,7 +50,7 @@ public class WhiteListServiceImpl extends AbstractService<WhiteListInfo> impleme
 
     @Override
     public Map<String, Integer> verify(WhiteListInputDTO whiteListInputDTO) {
-        String cacheKey = whiteListInputDTO.getGameId()+"-"+whiteListInputDTO.getDeviceId();
+        String cacheKey = whiteListInputDTO.getBundleId()+"-"+whiteListInputDTO.getDeviceId();
         Integer ifPresent = whiteListCache.getIfPresent(cacheKey);
         Map<String, Integer> resultMap = new HashMap<>();
         if(null!=ifPresent){
@@ -81,7 +81,7 @@ public class WhiteListServiceImpl extends AbstractService<WhiteListInfo> impleme
     @Scheduled(fixedRateString = "${timed-task.white-list-refresh-cycle}")
     public void whiteListCacheBuilding(){
         List<WhiteListInfo> whiteListInfos = whiteListMapper.selectAll();
-        Map<String, Integer> collect = whiteListInfos.stream().collect(Collectors.toMap(w -> w.getGameId() + "-" + w.getDeviceId(), w -> w.hashCode()));
+        Map<String, Integer> collect = whiteListInfos.stream().collect(Collectors.toMap(w -> w.getBundleId() + "-" + w.getDeviceId(), w -> w.hashCode()));
         whiteListCache.invalidateAll();
         whiteListCache.putAll(collect);
     }

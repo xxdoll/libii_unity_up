@@ -60,7 +60,7 @@ public enum ResultCode {
     /**
      * 资源
      */
-
+    PROJECT_IS_NOT_EXIST(5100,"当前项目未配置，无法上传资源"),
     RESOURCE_EXIST(5101, "当前资源已存在"),
     CDN_RESOURCE_UPLOAD_ERROR(5110, "cdn上传资源失败，请重试"),
 
@@ -71,6 +71,11 @@ public enum ResultCode {
     AWS_DELETE_ERROR(5302, "日历表前版本配置删除失败"),
     AWS_COPY_ERROR(5303, "日历表配置发布失败，请联系管理员"),
     AWS_ERROR(5304, "日历表传输异常，请联系管理员"),
+
+    /**
+     * 正式服务器推送
+     */
+    PUSH_ERROR(5400, "测试资源配置推送正式环境异常，请重试"),
     ;
 
 

@@ -24,7 +24,7 @@ public class HotUpdateResourceQueryDTO {
     /**
      *  游戏ID
      */
-    private String gameId;
+    private String bundleId;
 
     /**
      *  平台

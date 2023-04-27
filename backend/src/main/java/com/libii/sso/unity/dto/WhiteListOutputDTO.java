@@ -18,7 +18,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class WhiteListOutputDTO {
 
-    private String gameId;
+    private String bundleId;
 
     private String deviceId;
 
