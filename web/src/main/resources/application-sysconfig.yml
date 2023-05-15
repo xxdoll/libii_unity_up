@@ -41,7 +41,38 @@ client:
     - http://localhost:8080
     - http://localhost:9999
     - http://192.168.1.201:9999
-
   # 系统模块ID  新克隆的项目，一定记得更改此处
-  moduleId: 2
+  moduleId: 108
+
+custom:
+  config:
+    ignores:
+      # 需要过滤的 post 请求
+      post:
+        - "/refresh/token"
+      # options的请求不拦截
+      options:
+        - "/**"
+      # 需要过滤的请求，不限方法
+      pattern:
+        # 不拦截 的请求
+        - "/swagger-ui.html"
+        - "/doc.html"
+        - "/v2/**"
+        - "/webjars/**"
+        - "/swagger-resources/**"
+        - "/hot-update"
+    unlogin:
+      # 需要过滤的 post 请求
+      post:
+        - "/hot-update/consume"
+      # options的请求不拦截
+      options:
+#        - "/**"
+      # 需要过滤的请求，不限方法
+      pattern:
+        # 不拦截 的请求
+#        - "/**"
+      get:
+        - "/hot-update/resource"
 

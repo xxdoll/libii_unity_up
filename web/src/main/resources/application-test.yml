@@ -1,6 +1,6 @@
 # 开发环境 和 测试环境 都使用这个配置
 server:
-  port: 8086
+  port: 8087
   # session失效时间
   servlet:
     context-path: /unity_up
@@ -10,6 +10,8 @@ server:
         name: unity_up-session
 
 spring:
+  application:
+    name: prod_unity_up
   profiles:
     include: sysconfig
   #json数据格式化
@@ -19,7 +21,7 @@ spring:
   # 数据源
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.0.26:3306/unity_up?useUnicode=true&characterEncoding=UTF-8&useSSL=false&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://192.168.0.26:3306/unity_up_prod?useUnicode=true&characterEncoding=UTF-8&useSSL=false&zeroDateTimeBehavior=convertToNull
 #    url: jdbc:mysql://192.168.0.144:3306/unity_up?useUnicode=true&characterEncoding=UTF-8&useSSL=false&zeroDateTimeBehavior=convertToNull
     username: root
     password: xuejinyu
@@ -67,23 +69,6 @@ spring:
       # 一次传多个文件的总大小
       max-request-size: 2048MB
 
-  #redis
-  redis:
-    database: 0
-    # Redis服务器地址
-    host: 192.168.0.23
-    port: 6379
-    password:
-    timeout: 5000ms
-
-    jedis:
-      pool:
-        # 连接池中的最大连接数
-        max-active: 8
-        # 连接池中的最大空闲连接
-        max-idle: 8
-        min-idle: 0
-        max-wait: -1ms
   # 取消spring对freemarker默认templates目录的检测
   freemarker:
     check-template-location: false
@@ -107,41 +92,41 @@ test:
   url: http://192.168.0.21/
   # 资源包存放路径
   path: /home/webgl_data/
-#  path: E:\\
 
-custom:
-  config:
-    ignores:
-      # 需要过滤的 post 请求
-      post:
-      # options的请求不拦截
-      options:
-        - "/**"
-      # 需要过滤的请求，不限方法
-      pattern:
-        # 不拦截 的请求
-        - "/swagger-ui.html"
-        - "/v2/**"
-        - "/webjars/**"
-        - "/swagger-resources/**"
-        - "/doc.html"
-#        - "/**"
+# 前端整合页面地址
+auth-platforms: http://192.168.0.23:28012/#/platforms
+# sso项目地址
+auth-sso: http://localhost:9999/permission
+
+# keycloak配置
+keycloak:
+  realm: ly-test-gateway
+  auth-server-url: http://192.168.0.20:8080/auth
+  resource: unity_up
+  ssl-required: none
+  public-client: true
+  autodetect-bearer-only: true
+  always-refresh-token: true
+
+# Eureka配置
+eureka:
+  instance:
+    prefer-ip-address: true
+    #    instance-id: 127.0.0.1
+    instance-id: 192.168.0.21
+  client:
+    serviceUrl:
+      defaultZone: http://libii:123456@192.168.0.23:8134/eureka/
+
+# Eureka 远程调用前缀
+rpc:
+  prefix:
+    sso: http://PERMISSION/permission
+
 # 定时任务周期
 timed-task:
-  white-list-refresh-cycle: 10000
-  hot-update-refresh-cycle: 10000
+  white-list-refresh-cycle: 50000
+  hot-update-refresh-cycle: 50000
 
-# 华为obs配置
-huawei:
-  obs:
-    accessKey: EV6YS2YONZHD3I8EB8NL
-    secretKey: oJ2R07XKzqyOvF75ArURCf35MatchBi6miXF1p5D
-    endPoint: https://obs.cn-east-2.myhuaweicloud.com
-    bucket: lr-test
-    server: http://lr-test.libii.cn/
-
-prod-env-push-url: http://127.0.0.1:8087/unity_up/
-
-repository-url:
-  - http://lr-test.libii.cn
-  - http://192.168.0.21:8088
+s3-server-url: https://d1zj49tg1cr53u.cloudfront.net/
+#192.168.5.201

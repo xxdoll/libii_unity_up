@@ -2,7 +2,9 @@ package com.libii.sso.unity.service.impl;
 
 import com.libii.sso.common.core.AbstractService;
 import com.libii.sso.unity.dao.ProjectMapper;
+import com.libii.sso.unity.dao.WhiteListMapper;
 import com.libii.sso.unity.domain.Project;
+import com.libii.sso.unity.domain.WhiteListInfo;
 import com.libii.sso.unity.service.ProjectService;
 import com.libii.sso.common.restResult.PageParam;
 import com.github.pagehelper.PageHelper;
@@ -27,6 +29,9 @@ public class ProjectServiceImpl extends AbstractService<Project> implements Proj
     @Resource
     private ProjectMapper projectMapper;
 
+    @Resource
+    private WhiteListMapper whiteListMapper;
+
     /**
      * 根据分页、排序信息和检索条件查询 @size 条 字典表数据
      * @param pageParam 分页参数
@@ -44,5 +49,12 @@ public class ProjectServiceImpl extends AbstractService<Project> implements Proj
 
         PageHelper.startPage(pageParam.getPage(), pageParam.getSize(), pageParam.getOrderBy());
         return projectMapper.selectByExample(example);
+    }
+
+    @Override
+    public void deleteProject(Integer id) {
+        Project project = projectMapper.selectByPrimaryKey(id);
+        whiteListMapper.deleteByBundleId(project.getCode());
+        projectMapper.deleteByPrimaryKey(id);
     }
 }

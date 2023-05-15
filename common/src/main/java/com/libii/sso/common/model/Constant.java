@@ -21,6 +21,13 @@ public interface Constant {
     int STATUS_PROD = 2;
 
     /**
+     * 权限接口相关
+     */
+    String CACHE_REQUEST = "SPRING_SECURITY_SAVED_REQUEST";
+    String AUTH_MENU = "/sso/user/authMenu";
+    String AUTH_USER = "/sso/user/auth";
+
+    /**
      * 登录用户的权限信息
      */
     String REDIS_PERM_KEY_PREFIX = "security:user:permissions:";

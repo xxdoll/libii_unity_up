@@ -8,7 +8,6 @@
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="resource_version" jdbcType="VARCHAR" property="resourceVersion" />
         <result column="status" jdbcType="INTEGER" property="status" />
-        <result column="is_force_update" jdbcType="BOOLEAN" property="isForceUpdate" />
         <result column="bundle_id" jdbcType="VARCHAR" property="bundleId" />
         <result column="platform" jdbcType="VARCHAR" property="platform" />
         <result column="channel" jdbcType="VARCHAR" property="channel" />
@@ -24,6 +23,7 @@
         <result column="max_app_version_num" jdbcType="INTEGER" property="maxAppVersionNum" />
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="timeout" jdbcType="INTEGER" property="timeout" />
     </resultMap>
 
 </mapper>

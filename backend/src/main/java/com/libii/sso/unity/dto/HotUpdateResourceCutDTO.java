@@ -24,11 +24,6 @@ public class HotUpdateResourceCutDTO {
     private Integer status;
 
     /**
-     *  是否强制更新版本 0-不强更 1-强更
-     */
-    private Boolean isForceUpdate;
-
-    /**
      *  资源服务器地址
      */
     private String serverUrl;
@@ -57,5 +52,10 @@ public class HotUpdateResourceCutDTO {
      *  资源能够适配的最高应用版本号整数
      */
     private Integer maxAppVersionNum;
+
+    /**
+     *  资源下载超时时间
+     */
+    private Integer timeout;
 
 }

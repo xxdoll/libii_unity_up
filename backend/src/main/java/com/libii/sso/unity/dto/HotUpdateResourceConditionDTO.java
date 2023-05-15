@@ -47,4 +47,9 @@ public class HotUpdateResourceConditionDTO {
      */
     private String unityVersion;
 
+    /**
+     *  unity版本
+     */
+    private String appVersionStr;
+
 }

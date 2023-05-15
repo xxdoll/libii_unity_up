@@ -63,6 +63,8 @@ public enum ResultCode {
     PROJECT_IS_NOT_EXIST(5100,"当前项目未配置，无法上传资源"),
     RESOURCE_EXIST(5101, "当前资源已存在"),
     CDN_RESOURCE_UPLOAD_ERROR(5110, "cdn上传资源失败，请重试"),
+    ACTIVE_RESOURCE_CAN_NOT_CHANGE(5112, "发布状态资源无法修改"),
+    THERE_ARE_NO_PUBLISHED_RESOURCES(5113,"当前资源修改后，app版本下没有发布状态的资源"),
 
     /**
      * aws上传

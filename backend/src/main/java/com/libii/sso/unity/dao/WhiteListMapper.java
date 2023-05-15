@@ -15,5 +15,7 @@ public interface WhiteListMapper extends Mapper<WhiteListInfo> {
 
     void deleteByDevice(@Param("deviceId") String deviceId);
 
+    void deleteByBundleId(@Param("bundleId") String bundleId);
+
     void deleteWhiteList(@Param("dto") WhiteListInputDTO inputDTO);
 }

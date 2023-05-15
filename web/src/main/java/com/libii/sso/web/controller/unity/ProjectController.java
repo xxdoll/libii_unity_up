@@ -41,7 +41,7 @@ public class ProjectController {
     @DeleteMapping
     @ApiOperation(value = "删除项目", notes = "单个删除", produces = "application/json")
     public RestResult delete(@ApiParam(name = "项目信息", required = true) Integer id) {
-        projectService.deleteById(id);
+        projectService.deleteProject(id);
         return ResultGenerator.genSuccessResult().setMessage("删除成功");
     }
 

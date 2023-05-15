@@ -25,7 +25,7 @@
         </dependency>
         <dependency>
             <groupId>com.libii.sso</groupId>
-            <artifactId>backend</artifactId>
+            <artifactId>security</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!-- SpringBoot 项目热部署 依赖-->

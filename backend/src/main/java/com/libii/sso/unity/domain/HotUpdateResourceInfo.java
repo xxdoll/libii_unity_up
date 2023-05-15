@@ -36,12 +36,6 @@ public class HotUpdateResourceInfo {
     private Integer status;
 
     /**
-     *  是否强制更新版本 0-不强更 1-强更
-     */
-    @Column(name = "is_force_update")
-    private Boolean isForceUpdate;
-
-    /**
      *  游戏ID
      */
     @Column(name = "bundle_id")
@@ -118,6 +112,12 @@ public class HotUpdateResourceInfo {
      */
     @Column(name = "max_app_version_num")
     private Integer maxAppVersionNum;
+
+    /**
+     *  资源下载超时时间
+     */
+    @Column(name = "timeout")
+    private Integer timeout;
 
     /**
      * 创建时间

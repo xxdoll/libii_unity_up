@@ -20,7 +20,7 @@
     </resultMap>
     <select id="list" resultMap="WhiteListMap">
         select distinct
-                        gdi.game_id,
+                        gdi.bundle_id,
                         gdi.create_time,
                         di.device_id,
                         di.description
@@ -38,6 +38,9 @@
 
     <delete id="deleteByDevice">
         delete from game_device_info where device_id = #{deviceId}
+    </delete>
+    <delete id="deleteByBundleId">
+        delete from game_device_info where bundle_id = #{bundleId}
     </delete>
     <delete id="deleteWhiteList">
         delete from game_device_info where bundle_id=#{dto.bundleId} AND device_id = #{dto.deviceId}

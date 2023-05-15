@@ -7,6 +7,7 @@
         <module>web</module>
         <module>backend</module>
         <module>common</module>
+        <module>security</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -32,6 +33,17 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-cloud-netflix-archaius</artifactId>
+                    <groupId>org.springframework.cloud</groupId>
+                </exclusion>
+            </exclusions>
+            <version>2.1.6.RELEASE</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

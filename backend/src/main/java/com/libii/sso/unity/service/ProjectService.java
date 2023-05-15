@@ -20,4 +20,5 @@ public interface ProjectService extends Service<Project> {
      */
     List<Project> list(PageParam pageParam, String query);
 
+    void deleteProject(Integer id);
 }

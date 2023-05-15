@@ -22,14 +22,14 @@ public class HotUpdateInetInputDTO {
     private String resourceVersion;
 
     /**
-     *  是否强制更新版本 0-不强更 1-强更
-     */
-    private Boolean isForceUpdate;
-
-    /**
      *  游戏ID
      */
     private String bundleId;
+
+    /**
+     *  游戏名
+     */
+    private String name;
 
     /**
      *  平台
@@ -85,5 +85,10 @@ public class HotUpdateInetInputDTO {
      *  资源能够适配的最高应用版本号整数
      */
     private Integer maxAppVersionNum;
+
+    /**
+     *  资源下载超时时间
+     */
+    private Integer timeout;
 
 }
